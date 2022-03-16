@@ -1,0 +1,61 @@
+<div class="title is-5 has-text-centered">Search Flights</div>
+
+<%= form_with(url: '/flights', method: "get", local: true) do %>
+
+<% available_airports= Airport.all.map{ |a| [a.code, a.id]} %>
+<% which_month= Flight.all.map {|flight| flight.start.month}.uniq %>
+<% which_day= Flight.all.map {|flight| flight.start.day}.uniq %>
+<% which_year= Flight.all.map {|flight| flight.start.year}.uniq %>
+
+<div class="field is-grouped">
+  <div class="field">
+    <div class="control">
+      <div class="select is-info">
+      <%= select_tag(:departure_airport_id, options_for_select(available_airports, selected: params[:departure_airport_id]), {prompt: "Departing from"}) %>
+    </div>
+   </div>
+  </div>
+
+<div class="field">
+  <div class="control">
+    <div class="select is-info">
+      <%= select_tag(:arrival_airport_id, options_for_select(available_airports, selected: params[:arrival_airport_id]), {prompt: "Arriving to"}) %>
+    </div>
+   </div>
+ </div>
+</div>
+
+<div class="field">
+  <div class="control">
+    <div class="select is-info">
+      <%= select_tag(:month, options_for_select(which_month, selected: params[:month]), {prompt: "Month"}) %>
+    </div>
+  </div>
+</div>
+
+<div class="field">
+  <div class="control">
+    <div class="select is-info">
+      <%= select_tag(:day, options_for_select(which_day, selected: params[:day]), {prompt: "Day"}) %>
+    </div>
+  </div>
+</div>
+
+<div class="field">
+  <div class="control">
+    <div class="select is-info">
+      <%= select_tag(:year, options_for_select(which_year, selected: params[:year]), {prompt: "Year"}) %>
+    </div>
+  </div>
+</div>
+
+<div class="field">
+  <div class="control">
+    <div class="select is-info">
+      <%= select_tag(:pass, options_for_select(1..4, selected: params[:pass]), {prompt: "Number of passengers"})%>
+    </div>
+  </div>
+</div>
+
+<%= submit_tag("Search flights", class: "button is-primary") %>
+<% end %>

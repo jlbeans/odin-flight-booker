@@ -1,0 +1,36 @@
+
+<div class = "section">
+  <div class = "container">
+    <div class = "columns">
+      <div class = "column is-four-fifths">
+        <h1 class= "title is-4 has-text-centered">
+          Flight Details
+        </h1>
+        <h2 class = "subtitle">
+          Departing from <%= @booking.flight.departure_airport.code %> |
+          Arriving to <%= @booking.flight.arrival_airport.code %>
+        </h2>
+        <p>
+          Departs at <%= @booking.flight.start.strftime('%l:%M%P')%> on
+          <%= @booking.flight.start.strftime('%m/%d/%y') %>
+        </p>
+        <p>
+          Arrives at <%= (@booking.flight.start +
+          (@booking.flight.duration/60).to_i.hours).strftime('%l:%M%P') %>
+        </p>
+        <p>
+          Total Flight Time: <%= (@booking.flight.duration/60) %> hours
+        </p><br />
+        <h2 class= "subtitle">
+          Passengers
+        </h2>
+          <% @booking.passengers.each_with_index do |pass, idx| %>
+             <%= pass.name %><br/>
+          <% end %>
+        </div>
+    </div>
+
+          <%= link_to "Book another flight", root_path, class: "button is-primary is-lower" %>
+
+    </div>
+  </div>

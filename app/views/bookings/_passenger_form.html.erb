@@ -1,0 +1,30 @@
+<%= form_with model: @booking, local: true do |f| %>
+<% count = 1 %>
+<%= f.fields_for :passengers do |passenger_info| %>
+<div class = "field is-horizontal">
+  <div class = "field-label">
+      <%= "Passenger #{count}" %>
+  </div>
+
+  <div class = "field-body">
+    <div class = "field">
+      <p class = "control is-expanded">
+        <%= passenger_info.text_field :name, required: true, class: "input", placeholder: "Name" %>
+      </p>
+    </div>
+
+    <div class = "field">
+      <p class = "control is-expanded">
+        <%= passenger_info.email_field :email, required: true, class: "input", placeholder: "Email" %>
+      </p>
+    </div>
+  </div>
+</div>
+
+<% count += 1 %>
+<% end %>
+
+<%= f.hidden_field :flight_id, value: params[:flight] %>
+
+<%= f.submit "Complete purchase", class: "button is-primary lowered" %>
+<% end %>

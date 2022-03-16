@@ -1,0 +1,21 @@
+
+<div class = "section">
+  <div class = "container has-text-centered">
+    <div class = "columns">
+      <div class = "column is-two-fifths">
+        <h1 class= "title is-4">
+          Your trip to <%= @selected_flight.arrival_airport.code %>
+        </h1>
+        <h2 class = "subtitle">
+          from <%= @selected_flight.departure_airport.code %><br/>
+          on <%= @selected_flight.start.strftime('%B %d, %Y')%><br/>
+          at <%= @selected_flight.start.strftime('%l:%M%P')%><br/>
+        </h2>
+      </div>
+
+      <div class = "column">
+        <%= render "passenger_form" %>
+      </div>
+    </div>
+  </div>
+</div>

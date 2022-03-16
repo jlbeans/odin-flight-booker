@@ -1,0 +1,30 @@
+<div class="container">
+  <div class= "columns">
+    <div class= "column is-half">
+      <%= link_to root_path do %>
+        <h1 class="title has-text-centered">
+          Flight Booker
+       </h1>,<br />
+     <% end %>
+
+      <p>
+        <%= render "search_flights" %>
+      </p>
+    </div>
+  </div>
+
+  <% unless @available_flights.nil? %>
+  <% if @available_flights.any? %>
+    <div class="section">
+      <h1 class="title is-4 is-centered">
+        Results for <%= Airport.find(params[:departure_airport_id]).code %>
+        to <%= Airport.find(params[:arrival_airport_id]).code %>
+      </h1>
+      <%= render "search_results" %>
+    </div>
+    <% else %>
+    <p> 0 results were found </p>
+    <%= render "search_flights" %>
+    <% end %>
+  <% end %>
+</div>

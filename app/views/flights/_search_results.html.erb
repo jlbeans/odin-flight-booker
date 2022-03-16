@@ -1,0 +1,39 @@
+
+<%= form_with url: "bookings/new/", method: "get", local: true do |f| %>
+<% @available_flights.each do |flight| %>
+    <div class="tile is-ancestor">
+      <div class="tile is-horizontal">
+        <div class="tile">
+          <div class="tile is-parent is-horizontal">
+            <article class="tile is-child box">
+              <p class="title is-4">
+                <%= radio_button_tag(:flight, flight.id)%>
+                US$ <%= Faker::Number.within(range: 125..600) %>
+              </p>
+                <div class="content">
+                  <div class="columns">
+                    <div class="column has-text-centered">
+                      <%= flight.start.strftime('%l:%M%P') %><br/>
+                      <%= flight.departure_airport.code %>
+                    </div>
+                    <div class="column has-text-centered">
+                      Nonstop<br/>
+                      <%= (flight.duration/60) %> hours
+                     </div>
+                     <div class="column has-text-centered">
+                       <%= (flight.start +
+                       (flight.duration/60).to_i.hours).strftime('%l:%M%P') %><br/>
+                       <%= flight.arrival_airport.code %>
+                     </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+      <%end%>
+
+      <%= hidden_field_tag :pass, params[:pass] %>
+      <%= f.submit "Continue", class: "button is-primary" %>
+      <%end%>
